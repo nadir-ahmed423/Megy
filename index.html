@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon - Megy</title>
-    <link rel="icon" href="https://tribil.site/Megy.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Coming Soon - Tribil</title>
+    <link rel="icon" href="https://tribil.site/Megy.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --color-red: #b22222;
-            --color-green: #185b1c;
-            --color-orange: #ff6f3c;
+            --red: #b22222;
+            --green: #185b1c;
+            --orange: #ff6f3c;
+            --background: #f8f9fa;
+            --text: #333333;
+            --light-gray: #e9ecef;
         }
 
-        html, body {
-            height: 100%;
+        * {
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            color: #333;
-            overflow: hidden; /* Hide scrollbars during loading */
-        }
-        
-        body {
-            background-color: #f7f7f7;
-            background-image: linear-gradient(135deg, #f7f7f7 0%, #e0e0e0 100%);
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
         }
 
-        /* New sleek loading animation */
+        body {
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loading Screen */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -39,170 +53,477 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f7f7f7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             z-index: 9999;
-            transition: opacity 0.7s ease-out;
+            transition: opacity 0.5s ease-out;
         }
-
+        
         .loader {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: inline-block;
+            width: 80px;
+            height: 80px;
             position: relative;
-            background: rgba(255, 111, 60, 0.2);
-            box-sizing: border-box;
-            animation: pulse-ring 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
         }
-
-        .loader::after {
-            content: '';
-            box-sizing: border-box;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
+        
+        .loader-circle {
             position: absolute;
-            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        .loader-circle:nth-child(2) {
+            border: 3px solid transparent;
+            border-top-color: var(--green);
+            animation: spin 2s linear infinite;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+        }
+        
+        .loader-circle:nth-child(3) {
+            border: 3px solid transparent;
+            border-top-color: var(--red);
+            animation: spin 2.5s linear infinite;
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        header {
+            padding: 40px 0 30px;
+            animation: slideDown 1s ease-out;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .tribil-logo {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .tribil-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .megy-logo {
+            height: 70px;
+            transition: transform 0.3s ease;
+        }
+
+        .megy-logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo img {
+            height: 100%;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .text-content {
+            text-align: center;
+            max-width: 700px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .coming-soon-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--red) 0%, var(--green) 50%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite, pulse 2s ease-in-out infinite;
+            position: relative;
+            display: inline-block;
+        }
+
+        .coming-soon-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--red), var(--green), var(--orange));
+            border-radius: 2px;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Form Styles */
+        .subscribe-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subscribe-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(255, 111, 60, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--orange) 0%, #e85e2a 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(255, 111, 60, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 111, 60, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Animated Background Elements */
+        .floating-elements {
+            position: absolute;
             top: 0;
-            background: var(--color-orange);
-            transform: scale(0);
-            animation: pulse-dot 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        @keyframes pulse-ring {
-            0% { transform: scale(0.6); }
-            100% { transform: scale(1.2); }
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
         }
 
-        @keyframes pulse-dot {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background: var(--red);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
         }
 
-        /* In-page Animations */
-        .fade-in-up {
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: var(--green);
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
         }
 
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            background: var(--orange);
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            background: var(--red);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 6s;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
-                transform: translateY(20px);
                 opacity: 0;
+                transform: translateY(40px);
             }
             to {
-                transform: translateY(0);
                 opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .coming-soon-title {
+                font-size: 2.8rem;
+            }
+            
+            .description {
+                font-size: 1.1rem;
+            }
+            
+            .logo-container {
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .tribil-logo {
+                height: 35px;
+            }
+            
+            .megy-logo {
+                height: 60px;
+            }
+            
+            .subscribe-form {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coming-soon-title {
+                font-size: 2.2rem;
+            }
+            
+            .tribil-logo {
+                height: 30px;
+            }
+            
+            .megy-logo {
+                height: 50px;
+            }
+            
+            .floating-element {
+                display: none;
             }
         }
     </style>
 </head>
-<body class="h-full">
-
+<body>
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="loader"></div>
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+        </div>
     </div>
 
-    <!-- Main Content -->
-    <main id="main-content" class="h-full w-full flex flex-col md:flex-row items-center justify-center p-8 md:p-16 relative" style="display: none;">
-        
-        <!-- Left Side: Logos and Text -->
-        <div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left z-10 space-y-8 md:space-y-12 mb-12 md:mb-0">
-            <header class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 fade-in-up">
-                <img src="https://tribil.site/logo.png" alt="Tribil Logo" class="h-16 w-auto rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
-                <img src="https://tribil.site/Megy.png" alt="Megy Logo" class="h-24 w-auto rounded-full shadow-md transition-transform transform hover:scale-105 duration-300">
-            </header>
-            
-            <div class="space-y-4 fade-in-up" style="animation-delay: 0.3s;">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-gray-800" style="color: var(--color-green);">
-                    We're building something amazing.
-                </h1>
-                <p class="text-lg md:text-xl text-gray-600 max-w-lg">
-                    Our new website is under construction. We are working hard to bring you a better experience. Stay tuned!
-                </p>
+    <!-- Header with Logos -->
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <a href="#" class="logo tribil-logo">
+                    <img src="https://tribil.site/logo.png" alt="Tribil Logo">
+                </a>
+                <a href="#" class="logo megy-logo">
+                    <img src="https://tribil.site/Megy.png" alt="Megy Logo">
+                </a>
             </div>
-            
-            <!-- Email Signup Form -->
-            <form id="email-form" action="https://formspree.io/f/xnnbkgoz" method="POST" class="w-full max-w-lg flex flex-col md:flex-row gap-4 justify-center items-stretch fade-in-up" style="animation-delay: 0.5s;">
-                <label for="email" class="sr-only">Email address</label>
-                <input 
-                    id="email" 
-                    name="email" 
-                    type="email" 
-                    autocomplete="email" 
-                    required 
-                    placeholder="Enter your email to get notified..."
-                    class="flex-grow min-w-0 p-4 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-orange-500 transition-colors duration-200 placeholder-gray-400 shadow-sm"
-                >
-                <button 
-                    type="submit" 
-                    class="bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105"
-                >
-                    Notify Me
-                </button>
-            </form>
-
-            <!-- Success Message -->
-            <p id="success-message" class="mt-4 text-green-600 font-semibold opacity-0 hidden fade-in-up">
-                Thanks for signing up! We'll be in touch soon.
-            </p>
         </div>
+    </header>
 
-        <!-- Right Side: Decorative SVG -->
-        <div class="w-full md:w-1/2 flex items-center justify-center p-4">
-            <svg class="w-full h-auto max-w-sm md:max-w-md lg:max-w-lg fade-in-up" style="animation-delay: 0.7s;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="var(--color-orange)" d="M47.7,-59.5C62.8,-53.4,76.5,-38.5,78,-21.8C79.6,-5.1,69.1,13.3,58.3,28.8C47.5,44.4,36.5,57.1,20.4,63.1C4.3,69.2,-17.1,68.6,-32.8,60.8C-48.5,53.1,-58.5,38.2,-64.1,21.5C-69.7,4.8,-71,-13.7,-64.4,-29.9C-57.8,-46.2,-43.3,-60.2,-26.8,-66.1C-10.4,-72,-2.1,-70.1,10.6,-66.9C23.3,-63.7,35.4,-61.8,47.7,-59.5Z" transform="translate(100 100)" />
-            </svg>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Animated Background Elements -->
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
         </div>
         
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Text content -->
+                <div class="text-content">
+                    <h1 class="coming-soon-title">Something Amazing Is Coming</h1>
+                    <p class="description">We're crafting an exceptional digital experience that will transform how you interact with technology. Join our waitlist to be the first to know when we launch!</p>
+                </div>
+
+                <!-- Subscribe Form -->
+                <form class="subscribe-form" action="https://formspree.io/f/xnnbkgoz" method="POST">
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Join Waitlist
+                    </button>
+                </form>
+            </div>
+        </div>
     </main>
-    
+
     <!-- Footer -->
-    <footer class="absolute bottom-0 w-full py-4 text-center text-gray-500 text-sm">
-        &copy; <span id="current-year"></span> Tribil. All Rights Reserved.
+    <footer>
+        <div class="container">
+            <p class="copyright">© <span id="current-year">2023</span> Tribil. All rights reserved. Designed with ❤️ in Egypt</p>
+        </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Hide loading screen after 3 seconds
+        setTimeout(function() {
             const loadingScreen = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
-            const form = document.getElementById('email-form');
-            const successMessage = document.getElementById('success-message');
-            
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Hide the loading screen and show the main content
+            loadingScreen.style.opacity = '0';
             setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    mainContent.style.display = 'flex';
-                    document.body.style.overflow = 'auto'; // Re-enable scrollbars
-                }, 700); // Wait for fade-out to complete
-            }, 2000); // 2 seconds for loader animation
-
-            // Handle form submission and success message
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    form.style.display = 'none';
-                    successMessage.style.display = 'block';
-                } else {
-                    console.error('Form submission failed');
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 3000);
+        
+        // Add animation to form elements on scroll into view
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
                 }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.text-content, .subscribe-form');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
             });
         });
     </script>
 </body>
 </html>
-
