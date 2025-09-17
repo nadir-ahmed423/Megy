@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Megy - Smart Restaurant Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #b22222;
+            --green: #185b1c;
+            --orange: #ff6f3c;
+            --background: #f8f9fa;
+            --text: #333333;
+            --light-gray: #e9ecef;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .tribil-logo {
+            height: 35px;
+        }
+
+        .megy-logo {
+            height: 50px;
+        }
+
+        .logo img {
+            height: 100%;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            gap: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(178, 34, 34, 0.03) 0%, rgba(24, 91, 28, 0.03) 50%, rgba(255, 111, 60, 0.03) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--red) 0%, var(--green) 50%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+
+        .hero-tagline {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-top: 30px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--red), var(--green), var(--orange));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--orange) 0%, #e85e2a 100%);
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .feature-desc {
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            box-shadow: var(--card-shadow);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--orange) 0%, #e85e2a 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .checkmark {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--red) 0%, var(--green) 50%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-desc {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(178, 34, 34, 0.05) 0%, rgba(24, 91, 28, 0.05) 50%, rgba(255, 111, 60, 0.05) 100%);
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .cta-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--orange) 0%, #e85e2a 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(255, 111, 60, 0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 111, 60, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 50px 0 30px;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--orange) 0%, #e85e2a 100%);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 111, 60, 0.4);
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        .copyright a {
+            color: var(--orange);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--red);
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .cta-title {
+                font-size: 2.2rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="https://tribil.site" class="logo tribil-logo">
+                <img src="tribil.png" alt="Tribil Logo">
+            </a>
+            <a href="/" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <a href="#" class="logo megy-logo">
+                <img src="Megy.png" alt="Megy Logo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Megy: The Smart Future of Restaurant and Café Management</h1>
+            <p>Megy is not just an electronic menu… Megy is a game-changing leap that will transform the way your restaurant operates.</p>
+            <p class="hero-tagline">Your True Success Partner in the Restaurant Business</p>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Revolutionizing Restaurant Management</h2>
+                <p class="section-subtitle">For the first time, you will interact with a smart menu powered by artificial intelligence that works for you, increases your sales, analyzes your data, and provides your customers with a completely new experience.</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">+47%</div>
+                    <div class="stat-desc">Average increase in sales for our partners</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-desc">Of customers prefer smart menus</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-desc">AI-powered insights and support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Complete Menu Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">A Complete and Flexible Menu</h2>
+                <p class="section-subtitle">Modern, elegant, and fully customizable to match your restaurant's identity</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Ready-Made Designs</h3>
+                    <p class="feature-desc">A modern, elegant interface that includes a wide variety of ready-made designs to choose from.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brush"></i>
+                    </div>
+                    <h3 class="feature-title">Full Customization</h3>
+                    <p class="feature-desc">Complete customization for every detail to match your restaurant's unique identity and branding.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="feature-title">Flexible Dashboard</h3>
+                    <p class="feature-desc">A customizable dashboard where you can add multiple staff members and assign different permissions to each one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Artificial Intelligence that Serves You</h2>
+                <p class="section-subtitle">Smart technology that understands your business and your customers</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Direct AI Chat</h3>
+                    <p class="feature-desc">Simply say "increase prices by 10%" or "change the menu design" and our AI executes your commands instantly.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Time Adaptation</h3>
+                    <p class="feature-desc">The menu intelligently displays lunch items at lunchtime and dinner items at dinnertime, understanding customer needs in real time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="feature-title">Personalized Suggestions</h3>
+                    <p class="feature-desc">Suggests meals tailored to each customer and can send messages or notifications about special offers.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Behavior Analysis</h3>
+                    <p class="feature-desc">Analyzes customer behavior and highlights the items that are most in demand during peak times.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Experience Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">An Advanced Customer Experience</h2>
+                <p class="section-subtitle">Seamless ordering and payment for your customers</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3 class="feature-title">Multiple Order Options</h3>
+                    <p class="feature-desc">Customers can order for pickup, delivery, or reserve a table—all from one convenient place.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="feature-title">Payment Support</h3>
+                    <p class="feature-desc">Full support for all available payment methods, making transactions smooth and hassle-free.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3 class="feature-title">Dedicated QR Code</h3>
+                    <p class="feature-desc">A unique QR Code for each restaurant so customers can instantly open the menu with a simple scan.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Cancellations</h3>
+                    <p class="feature-desc">Cancel orders easily from the dashboard, with instant notifications sent to customers about cancellations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operations Management Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Easy Restaurant Operations Management</h2>
+                <p class="section-subtitle">Streamlined processes that save time and reduce errors</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="feature-title">Dual Order Notifications</h3>
+                    <p class="feature-desc">Receive orders directly on the dashboard or through WhatsApp for maximum flexibility.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="feature-title">Automatic Calculations</h3>
+                    <p class="feature-desc">The system automatically calculates delivery fees and generates organized order summaries with all details.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Secure Order Storage</h3>
+                    <p class="feature-desc">All orders are securely stored in the system and can be reviewed anytime for reporting and analysis.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="feature-title">Multi-Branch Support</h3>
+                    <p class="feature-desc">Full support for multiple branches, with a unique code assigned to each branch for easy management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Accurate Predictions and Analytics</h2>
+                <p class="section-subtitle">Data-driven insights to grow your business</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">AI Predictions</h3>
+                    <p class="feature-desc">Hours before peak times, Megy sends alerts so you can prepare and stock up on products that will be in high demand.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="feature-title">Detailed Reports</h3>
+                    <p class="feature-desc">Comprehensive analytics about restaurant performance, golden hours, top-selling products, and customer behavior.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="feature-title">Actionable Insights</h3>
+                    <p class="feature-desc">Access data no restaurant could analyze manually, right at your fingertips to make informed decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">A Fair and Flexible Policy</h2>
+                <p class="section-subtitle">Transparent pricing with no hidden costs</p>
+            </div>
+
+            <div class="comparison">
+                <table class="comparison-table">
+                    <tr>
+                        <th>Feature</th>
+                        <th>Traditional Systems</th>
+                        <th>Megy</th>
+                    </tr>
+                    <tr>
+                        <td>Upfront Cost</td>
+                        <td>High setup fees</td>
+                        <td class="checkmark">No fixed costs</td>
+                    </tr>
+                    <tr>
+                        <td>Trial Period</td>
+                        <td>Rarely offered</td>
+                        <td class="checkmark">Free trial available</td>
+                    </tr>
+                    <tr>
+                        <td>Pricing Model</td>
+                        <td>Monthly subscriptions</td>
+                        <td class="checkmark">Small commission on orders only</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice & Payment</td>
+                        <td>Manual processes</td>
+                        <td class="checkmark">Automatic invoices with payment links</td>
+                    </tr>
+                    <tr>
+                        <td>AI Capabilities</td>
+                        <td>Limited or nonexistent</td>
+                        <td class="checkmark">Full AI integration</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Restaurant?</h2>
+            <p class="cta-subtitle">Join the future of restaurant management with Megy and experience the difference that AI-powered technology can make.</p>
+            <a href="/" class="cta-btn">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p class="copyright">© <span id="current-year">2023</span> <a href="https://tribil.site">Tribil</a>. All rights reserved. Designed with ❤️ in Egypt</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Add animation to elements on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.feature-card, .stat-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
