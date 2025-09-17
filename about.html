@@ -170,7 +170,7 @@
         /* Feature Cards */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-top: 50px;
         }
@@ -217,6 +217,38 @@
             flex-grow: 1;
         }
 
+        /* 3-column grid for sections with 3 cards */
+        .features-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Visual connector for 2×2 grid */
+        .grid-connector {
+            position: relative;
+        }
+
+        .grid-connector::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--orange), transparent);
+            z-index: -1;
+        }
+
+        .grid-connector::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+            z-index: -1;
+        }
+
         /* Comparison Table */
         .comparison {
             overflow-x: auto;
@@ -259,7 +291,7 @@
         /* Stats Section */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
             margin-top: 50px;
         }
@@ -398,6 +430,20 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .features-grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -411,12 +457,21 @@
                 font-size: 2rem;
             }
             
+            .features-grid,
+            .features-grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
             .feature-card {
                 padding: 20px;
             }
             
             .stat-number {
                 font-size: 2.5rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
             }
             
             .cta-title {
@@ -429,6 +484,11 @@
             
             .comparison-table th, .comparison-table td {
                 padding: 12px 15px;
+            }
+            
+            .grid-connector::before,
+            .grid-connector::after {
+                display: none;
             }
         }
 
@@ -443,14 +503,6 @@
             
             .section-title {
                 font-size: 1.8rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-container {
-                grid-template-columns: 1fr;
             }
             
             .social-icon {
@@ -543,13 +595,21 @@
                     <h3 class="feature-title">Flexible Dashboard</h3>
                     <p class="feature-desc">A customizable dashboard where you can add multiple staff members and assign different permissions to each one.</p>
                 </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Responsive Design</h3>
+                    <p class="feature-desc">Your menu looks perfect on any device, from smartphones to tablets to desktop computers.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- AI Section -->
     <section>
-        <div class="container">
+        <div class="container grid-connector">
             <div class="section-header">
                 <h2 class="section-title">Artificial Intelligence that Serves You</h2>
                 <p class="section-subtitle">Smart technology that understands your business and your customers</p>
@@ -593,7 +653,7 @@
 
     <!-- Customer Experience Section -->
     <section>
-        <div class="container">
+        <div class="container grid-connector">
             <div class="section-header">
                 <h2 class="section-title">An Advanced Customer Experience</h2>
                 <p class="section-subtitle">Seamless ordering and payment for your customers</p>
@@ -637,7 +697,7 @@
 
     <!-- Operations Management Section -->
     <section>
-        <div class="container">
+        <div class="container grid-connector">
             <div class="section-header">
                 <h2 class="section-title">Easy Restaurant Operations Management</h2>
                 <p class="section-subtitle">Streamlined processes that save time and reduce errors</p>
@@ -687,7 +747,7 @@
                 <p class="section-subtitle">Data-driven insights to grow your business</p>
             </div>
 
-            <div class="features-grid">
+            <div class="features-grid features-grid-3">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-brain"></i>
