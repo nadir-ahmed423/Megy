@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon - Tribil</title>
-    <!-- Favicon -->
     <link rel="icon" href="https://tribil.site/Megy.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +16,20 @@
             --color-orange: #ff6f3c;
         }
 
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
             color: #333;
+            overflow: hidden; /* Hide scrollbars during loading */
+        }
+        
+        body {
+            background-color: #f7f7f7;
+            background-image: linear-gradient(135deg, #f7f7f7 0%, #e0e0e0 100%);
         }
 
-        /* Loading Screen styles */
+        /* New sleek loading animation */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -35,115 +41,53 @@
             align-items: center;
             background-color: #f7f7f7;
             z-index: 9999;
+            transition: opacity 0.7s ease-out;
         }
-        
-        /* Abstract Animation */
-        .abstract-animation-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-        }
-        
-        .animated-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+
+        .loader {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            opacity: 0;
-            animation: pulse-ring 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            display: inline-block;
+            position: relative;
+            background: rgba(255, 111, 60, 0.2);
+            box-sizing: border-box;
+            animation: pulse-ring 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
         }
 
-        .animated-square {
+        .loader::after {
+            content: '';
+            box-sizing: border-box;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             position: absolute;
-            width: 50px;
-            height: 50px;
-            transform-origin: center;
-            opacity: 0;
-            animation: move-and-fade 5s ease-in-out infinite;
-        }
-
-        /* Specific animations and delays for loading screen */
-        .animated-circle.orange {
-            width: 150px;
-            height: 150px;
-            background-color: var(--color-orange);
-            animation-delay: 0.5s;
-        }
-        .animated-circle.green {
-            width: 120px;
-            height: 120px;
-            background-color: var(--color-green);
-            animation-delay: 1.5s;
-        }
-        .animated-circle.red {
-            width: 90px;
-            height: 90px;
-            background-color: var(--color-red);
-            animation-delay: 2.5s;
-        }
-
-        .animated-square:nth-child(4) {
-            top: 10%;
-            left: 10%;
-            background-color: var(--color-orange);
-            animation-delay: 0.2s;
-        }
-        .animated-square:nth-child(5) {
-            top: 80%;
-            left: 20%;
-            background-color: var(--color-green);
-            animation-delay: 1s;
-        }
-        .animated-square:nth-child(6) {
-            top: 30%;
-            left: 70%;
-            background-color: var(--color-red);
-            animation-delay: 1.8s;
+            left: 0;
+            top: 0;
+            background: var(--color-orange);
+            transform: scale(0);
+            animation: pulse-dot 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
         }
 
         @keyframes pulse-ring {
-            0% {
-                transform: translate(-50%, -50%) scale(0.3);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: scale(0.6); }
+            100% { transform: scale(1.2); }
         }
 
-        @keyframes move-and-fade {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(0);
-                opacity: 0;
-            }
-            25% {
-                transform: translate(20px, 50px) rotate(45deg) scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: translate(50px, -20px) rotate(90deg) scale(1);
-                opacity: 0.8;
-            }
-            75% {
-                transform: translate(80px, 30px) rotate(135deg) scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(100px, 100px) rotate(180deg) scale(0);
-                opacity: 0;
-            }
+        @keyframes pulse-dot {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
         }
 
-        /* New Animation for Main Content */
-        .slide-in-up {
-            animation: slideInUp 1s ease-out forwards;
+        /* In-page Animations */
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
         }
-        
-        @keyframes slideInUp {
+
+        @keyframes fadeInUp {
             from {
-                transform: translateY(100px);
+                transform: translateY(20px);
                 opacity: 0;
             }
             to {
@@ -153,60 +97,69 @@
         }
     </style>
 </head>
-<body>
+<body class="h-full">
 
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="abstract-animation-container">
-            <div class="animated-circle orange"></div>
-            <div class="animated-circle green"></div>
-            <div class="animated-circle red"></div>
-            <div class="animated-square"></div>
-            <div class="animated-square"></div>
-            <div class="animated-square"></div>
-        </div>
+        <div class="loader"></div>
     </div>
 
-    <!-- Main Content - Initially hidden -->
-    <main id="main-content" class="flex flex-col min-h-screen items-center justify-center p-4" style="display: none;">
+    <!-- Main Content -->
+    <main id="main-content" class="h-full w-full flex flex-col md:flex-row items-center justify-center p-8 md:p-16 relative" style="display: none;">
         
-        <!-- Logos at the top, now larger -->
-        <header class="mb-12 flex flex-col md:flex-row items-center justify-center gap-8 slide-in-up">
-            <img src="https://tribil.site/logo.png" alt="Tribil Logo" class="h-16 md:h-24 w-auto rounded-lg">
-            <img src="https://tribil.site/Megy.png" alt="Megy Logo" class="h-40 md:h-48 w-auto rounded-full">
-        </header>
+        <!-- Left Side: Logos and Text -->
+        <div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left z-10 space-y-8 md:space-y-12 mb-12 md:mb-0">
+            <header class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 fade-in-up">
+                <img src="https://tribil.site/logo.png" alt="Tribil Logo" class="h-16 w-auto rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                <img src="https://tribil.site/Megy.png" alt="Megy Logo" class="h-24 w-auto rounded-full shadow-md transition-transform transform hover:scale-105 duration-300">
+            </header>
+            
+            <div class="space-y-4 fade-in-up" style="animation-delay: 0.3s;">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-gray-800" style="color: var(--color-green);">
+                    We're building something amazing.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-lg">
+                    Our new website is under construction. We are working hard to bring you a better experience. Stay tuned!
+                </p>
+            </div>
+            
+            <!-- Email Signup Form -->
+            <form id="email-form" action="https://formspree.io/f/xnnbkgoz" method="POST" class="w-full max-w-lg flex flex-col md:flex-row gap-4 justify-center items-stretch fade-in-up" style="animation-delay: 0.5s;">
+                <label for="email" class="sr-only">Email address</label>
+                <input 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    autocomplete="email" 
+                    required 
+                    placeholder="Enter your email to get notified..."
+                    class="flex-grow min-w-0 p-4 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-orange-500 transition-colors duration-200 placeholder-gray-400 shadow-sm"
+                >
+                <button 
+                    type="submit" 
+                    class="bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105"
+                >
+                    Notify Me
+                </button>
+            </form>
 
-        <!-- Main Content Section -->
-        <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100 mb-8 slide-in-up">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-green);">We're getting ready to launch!</h1>
-            <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-                Our new website is under construction. We are working hard to bring you a better experience.
-                Stay tuned for something amazing.
+            <!-- Success Message -->
+            <p id="success-message" class="mt-4 text-green-600 font-semibold opacity-0 hidden fade-in-up">
+                Thanks for signing up! We'll be in touch soon.
             </p>
-        </section>
-
-        <!-- New Button -->
-        <div class="flex flex-row items-center justify-center gap-4 slide-in-up">
-            <!-- Tribil Button with SVG Icon -->
-            <a href="https://tribil.site" target="_blank" class="flex items-center space-x-2 bg-[#ff741e] text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-[#e66c1b] transition duration-300">
-                <!-- Tribil SVG Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet" version="1.0">
-                    <defs><clipPath id="9921787026"><path d="M 0 28.296875 L 375 28.296875 L 375 347 L 0 347 Z M 0 28.296875 " clip-rule="nonzero"/></clipPath></defs>
-                    <g clip-path="url(#9921787026)">
-                        <path fill="#ffffff" d="M 349.289062 54.523438 C 328.574219 42.445312 294.714844 33.15625 258.707031 29.683594 C 241 27.96875 197.253906 25.445312 173.515625 38.886719 C 148.015625 53.304688 136.714844 88.535156 131.914062 121.863281 C 119.460938 120.867188 106.429688 119.53125 93.699219 117.742188 C 70.640625 114.5 52.605469 110.304688 40.09375 105.28125 C 27.582031 100.253906 23.113281 95.324219 23.113281 92.628906 C 23.113281 83.5625 49.164062 67.65625 120.941406 61.007812 C 121.695312 60.9375 122.4375 60.792969 123.167969 60.578125 C 123.894531 60.359375 124.59375 60.074219 125.265625 59.71875 C 125.9375 59.363281 126.566406 58.949219 127.15625 58.46875 C 127.746094 57.988281 128.28125 57.457031 128.765625 56.875 C 129.25 56.289062 129.671875 55.664062 130.03125 54.996094 C 130.394531 54.328125 130.6875 53.628906 130.910156 52.902344 C 131.132812 52.179688 131.285156 51.4375 131.363281 50.683594 C 131.441406 49.929688 131.441406 49.171875 131.371094 48.417969 C 131.300781 47.660156 131.15625 46.917969 130.9375 46.191406 C 130.722656 45.464844 130.4375 44.765625 130.082031 44.09375 C 129.726562 43.421875 129.308594 42.792969 128.828125 42.203125 C 128.351562 41.613281 127.816406 41.078125 127.234375 40.59375 C 126.648438 40.109375 126.023438 39.6875 125.355469 39.328125 C 124.6875 38.964844 123.988281 38.675781 123.261719 38.453125 C 122.539062 38.226562 121.796875 38.078125 121.042969 38 C 120.285156 37.921875 119.53125 37.921875 118.773438 37.992188 C 39.984375 45.289062 0.0117188 63.671875 0.0117188 92.628906 C 0.0117188 106.875 10.601562 118.347656 31.480469 126.730469 C 45.726562 132.449219 65.574219 137.125 90.480469 140.628906 C 103.476562 142.460938 116.78125 143.824219 129.46875 144.851562 L 129.46875 144.894531 C 126.421875 188.746094 131.1875 241.292969 141.90625 282.019531 C 153.226562 324.933594 168.5625 346.6875 187.5 346.6875 C 195.09375 346.6875 206.207031 343.863281 216.003906 330.414062 C 236.039062 302.933594 239.792969 246.84375 240.246094 215.859375 C 240.589844 192.679688 239.421875 169.574219 236.746094 146.546875 C 255.949219 145.242188 278.945312 142.800781 300.46875 138.5625 C 321.03125 134.519531 337.460938 129.363281 349.308594 123.234375 C 366.355469 114.425781 374.988281 103.121094 374.988281 89.632812 C 374.988281 76.292969 366.339844 64.464844 349.289062 54.523438 Z M 197.324219 316.8125 C 192.394531 323.582031 188.714844 323.582031 187.5 323.582031 C 185.738281 323.582031 174.597656 315.339844 164.28125 276.140625 C 154.171875 237.691406 149.660156 188.019531 152.550781 146.503906 C 152.550781 146.503906 152.550781 146.445312 152.550781 146.410156 C 177.414062 147.769531 197.042969 147.855469 202.8125 147.855469 C 205.875 147.855469 209.535156 147.804688 213.691406 147.679688 C 221.785156 214.304688 215.953125 291.246094 197.324219 316.8125 Z M 296.019531 115.914062 C 274.84375 120.082031 252.152344 122.414062 233.484375 123.640625 C 231.136719 109.316406 227.804688 95.226562 223.484375 81.367188 C 223.25 80.644531 222.949219 79.949219 222.582031 79.285156 C 222.210938 78.621094 221.78125 78 221.289062 77.417969 C 220.800781 76.839844 220.253906 76.3125 219.660156 75.839844 C 219.066406 75.367188 218.429688 74.957031 217.753906 74.609375 C 217.078125 74.261719 216.375 73.984375 215.644531 73.777344 C 214.914062 73.566406 214.167969 73.433594 213.410156 73.371094 C 212.652344 73.308594 211.898438 73.320312 211.144531 73.40625 C 210.386719 73.492188 209.648438 73.652344 208.925781 73.882812 C 208.199219 74.117188 207.507812 74.417969 206.84375 74.785156 C 206.179688 75.15625 205.554688 75.585938 204.976562 76.078125 C 204.398438 76.570312 203.871094 77.113281 203.398438 77.707031 C 202.925781 78.300781 202.515625 78.9375 202.167969 79.613281 C 201.820312 80.289062 201.542969 80.992188 201.332031 81.722656 C 201.125 82.453125 200.988281 83.199219 200.925781 83.957031 C 200.863281 84.714844 200.875 85.46875 200.964844 86.226562 C 201.050781 86.980469 201.210938 87.71875 201.441406 88.441406 C 205.171875 100.324219 208.101562 112.402344 210.234375 124.671875 C 207.46875 124.730469 204.972656 124.757812 202.796875 124.757812 C 197.277344 124.757812 178.664062 124.65625 155.03125 123.394531 C 160.085938 90.054688 170.585938 67.078125 184.851562 59 C 197.175781 52.035156 224.617188 49.617188 256.464844 52.683594 C 288.820312 55.808594 319.917969 64.164062 337.621094 74.488281 C 346.667969 79.765625 351.859375 85.316406 351.859375 89.648438 C 351.878906 96.703125 337.246094 107.800781 296.019531 115.914062 Z M 296.019531 115.914062 " fill-opacity="1" fill-rule="nonzero"/>
-                    </g>
-                </svg>
-                <span>Tribil</span>
-            </a>
-            <a href="https://tribil.site/megy" target="_blank" class="flex items-center">
-                <img src="https://tribil.site/Megy.png" alt="Megy Logo" class="h-10 w-10 rounded-full">
-            </a>
         </div>
 
+        <!-- Right Side: Decorative SVG -->
+        <div class="w-full md:w-1/2 flex items-center justify-center p-4">
+            <svg class="w-full h-auto max-w-sm md:max-w-md lg:max-w-lg fade-in-up" style="animation-delay: 0.7s;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--color-orange)" d="M47.7,-59.5C62.8,-53.4,76.5,-38.5,78,-21.8C79.6,-5.1,69.1,13.3,58.3,28.8C47.5,44.4,36.5,57.1,20.4,63.1C4.3,69.2,-17.1,68.6,-32.8,60.8C-48.5,53.1,-58.5,38.2,-64.1,21.5C-69.7,4.8,-71,-13.7,-64.4,-29.9C-57.8,-46.2,-43.3,-60.2,-26.8,-66.1C-10.4,-72,-2.1,-70.1,10.6,-66.9C23.3,-63.7,35.4,-61.8,47.7,-59.5Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        
     </main>
     
     <!-- Footer -->
-    <footer class="mt-auto py-6 text-center text-gray-500 text-sm">
+    <footer class="absolute bottom-0 w-full py-4 text-center text-gray-500 text-sm">
         &copy; <span id="current-year"></span> Tribil. All Rights Reserved.
     </footer>
 
@@ -214,14 +167,40 @@
         document.addEventListener('DOMContentLoaded', () => {
             const loadingScreen = document.getElementById('loading-screen');
             const mainContent = document.getElementById('main-content');
+            const form = document.getElementById('email-form');
+            const successMessage = document.getElementById('success-message');
             
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            // Hide the loading screen and show the main content after 5 seconds
+            // Hide the loading screen and show the main content
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                mainContent.style.display = 'flex';
-            }, 5000); // 5000 milliseconds = 5 seconds
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'flex';
+                    document.body.style.overflow = 'auto'; // Re-enable scrollbars
+                }, 700); // Wait for fade-out to complete
+            }, 2000); // 2 seconds for loader animation
+
+            // Handle form submission and success message
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+                } else {
+                    console.error('Form submission failed');
+                }
+            });
         });
     </script>
 </body>
