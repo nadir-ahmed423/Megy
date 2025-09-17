@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon - Tribil</title>
+    <link rel="icon" href="Megy.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -42,11 +43,66 @@
             padding: 0 20px;
         }
 
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .loader-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        .loader-circle:nth-child(2) {
+            border: 3px solid transparent;
+            border-top-color: var(--green);
+            animation: spin 2s linear infinite;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+        }
+        
+        .loader-circle:nth-child(3) {
+            border: 3px solid transparent;
+            border-top-color: var(--red);
+            animation: spin 2.5s linear infinite;
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Header */
         header {
-            padding: 30px 0;
-            position: relative;
-            z-index: 10;
+            padding: 40px 0 30px;
+            animation: slideDown 1s ease-out;
         }
 
         .header-container {
@@ -68,7 +124,7 @@
         }
 
         .megy-logo {
-            height: 60px;
+            height: 70px;
         }
 
         .logo img {
@@ -130,29 +186,9 @@
 
         .description {
             font-size: 1.3rem;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: #666;
             line-height: 1.8;
-        }
-
-        .about-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            color: var(--orange);
-            border: 2px solid var(--orange);
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .about-btn:hover {
-            background: var(--orange);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 111, 60, 0.3);
         }
 
         /* Form Styles */
@@ -179,7 +215,7 @@
 
         .form-input {
             width: 100%;
-            padding: 18px 20px;
+            padding: 18px 45px 18px 20px;
             border: 2px solid var(--light-gray);
             border-radius: 12px;
             font-size: 1rem;
@@ -191,6 +227,24 @@
             outline: none;
             border-color: var(--orange);
             box-shadow: 0 0 0 3px rgba(255, 111, 60, 0.2);
+        }
+
+        .clear-input {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        .clear-input:hover {
+            color: var(--red);
         }
 
         .submit-btn {
@@ -220,8 +274,8 @@
             transform: translateY(0);
         }
 
-        /* Animated Graphics */
-        .graphic-container {
+        /* Animated Background Elements */
+        .floating-elements {
             position: absolute;
             top: 0;
             left: 0;
@@ -229,17 +283,16 @@
             height: 100%;
             z-index: 1;
             overflow: hidden;
-            pointer-events: none;
         }
 
-        .graphic-element {
+        .floating-element {
             position: absolute;
             border-radius: 50%;
             opacity: 0.3;
             animation: float 15s infinite ease-in-out;
         }
 
-        .graphic-element:nth-child(1) {
+        .floating-element:nth-child(1) {
             width: 100px;
             height: 100px;
             background: var(--red);
@@ -248,7 +301,7 @@
             animation-delay: 0s;
         }
 
-        .graphic-element:nth-child(2) {
+        .floating-element:nth-child(2) {
             width: 150px;
             height: 150px;
             background: var(--green);
@@ -257,7 +310,7 @@
             animation-delay: 2s;
         }
 
-        .graphic-element:nth-child(3) {
+        .floating-element:nth-child(3) {
             width: 80px;
             height: 80px;
             background: var(--orange);
@@ -266,7 +319,7 @@
             animation-delay: 4s;
         }
 
-        .graphic-element:nth-child(4) {
+        .floating-element:nth-child(4) {
             width: 120px;
             height: 120px;
             background: var(--red);
@@ -335,8 +388,6 @@
             margin-top: auto;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
             animation: fadeIn 1s ease-out 1.2s both;
-            position: relative;
-            z-index: 2;
         }
 
         .social-icons {
@@ -463,15 +514,38 @@
             }
             
             .megy-logo {
-                height: 50px;
+                height: 60px;
             }
             
             .subscribe-form {
                 padding: 30px 25px;
             }
 
-            .graphic-element {
-                display: none;
+            /* Show floating elements on mobile with smaller size */
+            .floating-element {
+                width: 60px !important;
+                height: 60px !important;
+                opacity: 0.2;
+            }
+
+            .floating-element:nth-child(1) {
+                top: 15%;
+                left: 5%;
+            }
+
+            .floating-element:nth-child(2) {
+                top: 25%;
+                right: 5%;
+            }
+
+            .floating-element:nth-child(3) {
+                bottom: 25%;
+                left: 10%;
+            }
+
+            .floating-element:nth-child(4) {
+                bottom: 15%;
+                right: 10%;
             }
 
             .abstract {
@@ -489,18 +563,28 @@
             }
             
             .megy-logo {
-                height: 40px;
+                height: 50px;
             }
-            
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+
+            /* Even smaller floating elements on very small screens */
+            .floating-element {
+                width: 40px !important;
+                height: 40px !important;
+                opacity: 0.15;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+        </div>
+    </div>
+
     <!-- Header with Logos -->
     <header>
         <div class="container header-container">
@@ -516,11 +600,11 @@
     <!-- Main Content -->
     <main id="main-content">
         <!-- Animated Graphics -->
-        <div class="graphic-container">
-            <div class="graphic-element"></div>
-            <div class="graphic-element"></div>
-            <div class="graphic-element"></div>
-            <div class="graphic-element"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
         </div>
 
         <!-- Abstract Graphics -->
@@ -552,6 +636,9 @@
                 <form class="subscribe-form" action="https://formspree.io/f/xnnbkgoz" method="POST">
                     <div class="form-group">
                         <input type="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                        <button type="button" class="clear-input">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-paper-plane"></i> Join Waitlist
@@ -580,6 +667,15 @@
         // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
+        // Hide loading screen after 3 seconds
+        setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 3000);
+        
         // Add animation to form elements on scroll into view
         const observerOptions = {
             root: null,
@@ -602,6 +698,29 @@
                 el.style.opacity = '0';
                 observer.observe(el);
             });
+        });
+
+        // Clear input functionality
+        const emailInput = document.querySelector('.form-input');
+        const clearButton = document.querySelector('.clear-input');
+
+        emailInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                clearButton.style.display = 'block';
+            } else {
+                clearButton.style.display = 'none';
+            }
+        });
+
+        clearButton.addEventListener('click', function() {
+            emailInput.value = '';
+            emailInput.focus();
+            this.style.display = 'none';
+        });
+
+        // Hide clear button when form is submitted
+        document.querySelector('.subscribe-form').addEventListener('submit', function() {
+            clearButton.style.display = 'none';
         });
     </script>
 </body>
